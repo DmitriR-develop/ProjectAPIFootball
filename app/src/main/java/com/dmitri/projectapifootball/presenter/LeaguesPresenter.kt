@@ -5,11 +5,11 @@ import com.dmitri.projectapifootball.model.Leagues
 import com.dmitri.projectapifootball.navigation.AndroidScreen
 import com.dmitri.projectapifootball.view.LeaguesItemView
 import com.dmitri.projectapifootball.view.LeaguesView
-import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
+import ru.terrakok.cicerone.Router
 
 class LeaguesPresenter(
     private val leaguesRepo: ILeaguesRepo,
@@ -28,16 +28,7 @@ class LeaguesPresenter(
         }
 
         private fun onBindViewSuccess(view: LeaguesItemView, leagues: Leagues) {
-            view.setId(leagues.id)
             view.setName(leagues.name)
-            view.setCountry(leagues.country)
-            view.setCode(leagues.code)
-            view.setSeason(leagues.season)
-            view.setTeam(leagues.team)
-            view.setType(leagues.type)
-            view.setCurrent(leagues.current)
-            view.setSearch(leagues.search)
-            view.setLast(leagues.last)
         }
 
         private fun onBindViewError(error: Throwable) {
@@ -54,7 +45,7 @@ class LeaguesPresenter(
         loadData()
         leaguesListPresenter.itemClickListener = { itemView ->
             val league = leaguesListPresenter.leagues[itemView.pos]
-            router.navigateTo(AndroidScreen.TeamsScreens(league).getFragment())
+            router.navigateTo(AndroidScreen.TeamsScreens(league))
         }
     }
 

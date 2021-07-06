@@ -1,34 +1,19 @@
 package com.dmitri.projectapifootball
 
 import android.os.Bundle
-import com.dmitri.projectapifootball.databinding.ActivityMainBinding
+import com.dmitri.projectapifootball.R.layout.activity_main
+import com.dmitri.projectapifootball.abs.AbsActivity
+import com.dmitri.projectapifootball.navigation.AndroidScreen
 import com.dmitri.projectapifootball.navigation.IBackButtonListener
-import com.dmitri.projectapifootball.presenter.MainPresenter
-import com.dmitri.projectapifootball.view.MainView
-import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.androidx.AppNavigator
-import moxy.MvpAppCompatActivity
-import moxy.ktx.moxyPresenter
-import javax.inject.Inject
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
-class MainActivity : MvpAppCompatActivity(), MainView {
+class MainActivity() : AbsActivity(activity_main) {
 
-    @Inject
-    lateinit var navigatorHolder: NavigatorHolder
-
-    private val navigator = AppNavigator(this, R.id.container)
-    private var vb: ActivityMainBinding? = null
-    private val presenter by moxyPresenter {
-        MainPresenter().apply {
-            App.instance.appComponent.inject(this)
-        }
-    }
+    private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        App.instance.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
+        savedInstanceState ?: router.newRootScreen(AndroidScreen.LeaguesScreens())
     }
 
     override fun onResumeFragments() {
@@ -47,6 +32,5 @@ class MainActivity : MvpAppCompatActivity(), MainView {
                 return
             }
         }
-        presenter.backClicked()
     }
 }
