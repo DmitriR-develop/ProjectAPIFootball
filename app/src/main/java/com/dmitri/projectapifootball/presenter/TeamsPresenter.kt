@@ -4,11 +4,11 @@ import com.dmitri.projectapifootball.model.ILeaguesRepo
 import com.dmitri.projectapifootball.model.Teams
 import com.dmitri.projectapifootball.view.TeamsItemView
 import com.dmitri.projectapifootball.view.TeamsView
+import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
-import ru.terrakok.cicerone.Router
 
 class TeamsPresenter(
     private val leagueId: Int,

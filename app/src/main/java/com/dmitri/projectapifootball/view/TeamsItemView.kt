@@ -1,5 +1,5 @@
 package com.dmitri.projectapifootball.view
 
 interface TeamsItemView : IItemView {
-    fun setName(league: String)
+    fun setName(text: String)
 }
